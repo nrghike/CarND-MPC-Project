@@ -2,7 +2,27 @@
 Self-Driving Car Engineer Nanodegree Program
 
 ---
+---
+## Project Writeup
 
+* Model
+  * Motion model equations as described in the lessons were used. We use kinematic model which takes some tire slip angle into consideration and its simple.
+  * In the model, we account for the vehicle position, heading angle, velocity.Cross track error, and heading error are evaluated by using the path fit polynomial and it's derivative evaluated at the time step's x position. The length of the vehicle from the front to the center of gravity (Lf) is also used. 
+* N was chosen as 20 and dt as 0.05. This allowed us to look 1.0 seconds ahead. A larger N resulted in more computation. A larger dt resulted in discretization error.
+* Vehicle co-ordinate system was converted to Simulator co-ordinate system by a translation and rotation co-ordinate shift.
+* Tuning for Reference State
+  * cross track error and heading errors were given large weights since following the reference was high priority.
+* Tuning for Actuators
+  * steering angle and acceleration were given moderate weights.
+* Tuning between sequential Actuations
+  * Rate of change of steering angle was given higher weight in order to dampen the effect of sudden turning.
+  * Rate of change of acceleration was given moderate weight.
+* Latency (delay)
+  * 100ms latency was accounted for. The original state was predicted (using the motion model prediction equations) to a state 100ms ahead before sending it to the MPC Controller.
+* Simulation Result
+  * The simulation result video can be found at following link https://youtu.be/ZE85unfd4M4
+
+  
 ## Dependencies
 
 * cmake >= 3.5
